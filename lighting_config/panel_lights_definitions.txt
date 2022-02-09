@@ -1,0 +1,12 @@
+
+
+; Add these definitions to your systems.cfg file. Edit the lightdef.XX number to be sequential.
+; You can change the PotentiometerIndex to match the panel brightness control
+
+[LIGHTS]
+lightdef.20=Type:10#Index:0#LocalPosition:0.000000,0.000000,0.000000#LocalRotation:0.000000,0.000000,0.000000#EffectFile:LIGHT_ASOBO_GaugeSmall#PotentiometerIndex:4#Node:Panel_Light_1
+lightdef.21=Type:10#Index:0#LocalPosition:0.000000,0.000000,0.000000#LocalRotation:0.000000,0.000000,0.000000#EffectFile:LIGHT_ASOBO_GaugeSmall#PotentiometerIndex:4#Node:Panel_Light_2
+lightdef.22=Type:10#Index:0#LocalPosition:0.000000,0.000000,0.000000#LocalRotation:0.000000,0.000000,0.000000#EffectFile:LIGHT_ASOBO_GaugeSmall#PotentiometerIndex:4#Node:Panel_Light_3
+lightdef.23=Type:10#Index:0#LocalPosition:0.000000,0.000000,0.000000#LocalRotation:0.000000,0.000000,0.000000#EffectFile:LIGHT_ASOBO_GaugeSmall#PotentiometerIndex:4#Node:Panel_Light_4
+lightdef.24=Type:10#Index:0#LocalPosition:0.000000,0.000000,0.000000#LocalRotation:0.000000,0.000000,0.000000#EffectFile:LIGHT_ASOBO_GaugeSmall#PotentiometerIndex:4#Node:Panel_Light_5
+lightdef.25=Type:10#Index:0#LocalPosition:0.000000,0.000000,0.000000#LocalRotation:0.000000,0.000000,0.000000#EffectFile:LIGHT_ASOBO_GaugeSmall#PotentiometerIndex:4#Node:Panel_Light_6

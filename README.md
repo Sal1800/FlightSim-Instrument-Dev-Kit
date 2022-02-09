@@ -15,11 +15,20 @@ From your aircraft Blender model file, select File -> Append and locate the inst
 The Append dialog box shows all the possible data that can be appended. Select Collections and locate the collection containing the instrument of interest. You can select multiple instruments by control-clicking to select as many as you need.
 
 
-
 ### Positioning the instruments
 Now that you have the instrument collection and objects, it's not likely that they are positioned in the correct place for your panel. While you can grab and move them, there is a more precise method.
 
-The 3D cursor will be one of the key tools to position objects precisely where you want them. Additionally, you can utilize the Item Panel to set the location by entering the X, Y & Z coordinates.
+The 3D cursor will be one of the key tools to position objects precisely where you want them. To move the Cursor effectively, use Shift S to open the Snap context menu. "Cursor to Selected" and "Cursor to Active" will snap the 3D cursor to the current object. This works in Object mode or Edit mode. 
 
-Objects in Blender are located based on their origin point. The instruments each use a root node that is positioned in the center of the instrument dial. 
+The instruments in this kit each use a root node that is positioned in the center of the instrument dial. To move the instrument and all of it's child objects, select only the root object and use the Shift S -> "Selected to Cursor" command to snap the instrument to the cursor location. 
+
+
+### Add the Behavior Code to your Model XML
+Copy the included behavior code into your interior model XML file in the <Behaviors> section. This is all that is needed to activate the animations and knob mouse rects.
+
+### Customizing
+Most of the instruments are fairly standard across many aircraft types, so they can be used as is. Some, like the airspeed indicator will not be suitable for all types and will require some modification to handle the scale and reference speeds of the particular aircraft you are modeling. See the documentation section for details on how to draw gauge faces and calibrate the animations. 
+
+### Troubleshooting
+If the Package build process fails, the most likely reason will be a misconfiguration of the behavior XML code. Ensure that all XML tags have a closing tag. There are some online XML validation tools that may help to pinpoint exactly where the error may lie. 
 

@@ -5,8 +5,7 @@
 <Behaviors>
 
 		<Include ModelBehaviorFile="Asobo\Common.xml"/>
-		<Include ModelBehaviorFile="Asobo\Generic.xml"/>		
-	    <Include RelativeFile="CustomBehaviors\DevKit_Custom_Instrument_Templates.xml"/>
+		<Include ModelBehaviorFile="Asobo\Generic.xml"/>
 
 		<!-- FLIGHT_INSTRUMENTS ########################### -->
 		<Component ID="FLIGHT_INSTRUMENTS">
@@ -49,10 +48,11 @@
 			<Component ID="Artifical_Horizon">
 				<UseTemplate Name="ASOBO_INSTRUMENT_AttitudeIndicator_Simple_Template">
 					<ID>1</ID>
+					<USE_FLAG/>
 				</UseTemplate>
 				<UseTemplate Name="ASOBO_INSTRUMENT_Knob_AttitudeCage_Template">
 					<ID>1</ID>
-					<NO_BARS_POSTION_ADJUSTEMENT>FALSE</NO_BARS_POSTION_ADJUSTEMENT>
+					<NO_BARS_POSTION_ADJUSTEMENT>False</NO_BARS_POSTION_ADJUSTEMENT>
 				</UseTemplate>
 			</Component>
 
@@ -69,13 +69,8 @@
 			<UseTemplate Name="ASOBO_INSTRUMENT_Needle_Heading_Template">
 				<HEADING_KNOB/>
 				<USE_FLAG/>	
-				<USE_ELECTRICAL_CHECK>False</USE_ELECTRICAL_CHECK>
+				<USE_ELECTRICAL_CHECK>True</USE_ELECTRICAL_CHECK>
 			</UseTemplate>
-
-
-
-
-
 
 		</Component>
 </Behaviors>
