@@ -1,0 +1,21 @@
+<!-- 0-185 Knots -->
+<UseTemplate Name="DevKit_Custom_Airspeed_Gauge_Template">
+	<NODE_ID>INSTRUMENT_Needle_Airspeed_1</NODE_ID>
+	<ANIM_NAME>INSTRUMENT_Needle_Airspeed_1</ANIM_NAME>
+	<MIN_VALUE>0</MIN_VALUE>
+	<MAX_VALUE>185</MAX_VALUE>
+	<CAL_COUNT>6</CAL_COUNT>
+	<CAL_KEY_1>33</CAL_KEY_1>
+	<CAL_VAL_1>40</CAL_VAL_1>
+	<CAL_KEY_2>127</CAL_KEY_2>
+	<CAL_VAL_2>80</CAL_VAL_2>
+	<CAL_KEY_3>175</CAL_KEY_3>
+	<CAL_VAL_3>100</CAL_VAL_3>
+	<CAL_KEY_4>213</CAL_KEY_4>
+	<CAL_VAL_4>120</CAL_VAL_4>				
+	<CAL_KEY_5>267</CAL_KEY_5>
+	<CAL_VAL_5>140</CAL_VAL_5>
+	<CAL_KEY_6>314</CAL_KEY_6>
+	<CAL_VAL_6>160</CAL_VAL_6>							
+</UseTemplate>
+

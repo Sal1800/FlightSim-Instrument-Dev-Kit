@@ -1,0 +1,76 @@
+
+
+
+
+<Behaviors>
+
+		<Include ModelBehaviorFile="Asobo\Common.xml"/>
+		<Include ModelBehaviorFile="Asobo\Generic.xml"/>
+
+		<!-- FLIGHT_INSTRUMENTS ########################### -->
+		<Component ID="FLIGHT_INSTRUMENTS">
+			
+			<!-- ::: AIRSPEED INDICATOR ::: -->
+			<Component ID="INSTRUMENT_Airspeed" NODE_ID="INSTRUMENT_Needle_Airspeed_1">
+				<!-- The frame number will be equal to the indicated airspeed in knots -->
+				<PART_ID>INSTRUMENT_Needle_Airspeed_1</PART_ID>
+				<UseTemplate Name="ASOBO_GT_Anim">
+					<ANIM_NAME>INSTRUMENT_Needle_Airspeed_1</ANIM_NAME>
+					<ANIM_LENGTH>175</ANIM_LENGTH>
+					<MAX_VALUE>175</MAX_VALUE>
+					<ANIM_CODE>
+						(A:AIRSPEED INDICATED, knots) 
+					</ANIM_CODE>
+				</UseTemplate>
+			</Component>
+
+
+			<!-- ::: ALTIMETER ::: -->
+			<UseTemplate Name="ASOBO_INSTRUMENT_Altimeter_Template">
+				<DONT_APPEND_ID>True</DONT_APPEND_ID>
+		        <MIN_VALUE_STRIP>28.1</MIN_VALUE_STRIP>
+				<MAX_VALUE_STRIP>31.6</MAX_VALUE_STRIP>
+				<HIGHLIGHT_PART_ID>INSTRUMENT_Altimeter_Bezel</HIGHLIGHT_PART_ID>
+    			<ANIM_NAME_100_FEET>INSTRUMENT_Needle_Altimeter_100</ANIM_NAME_100_FEET>
+				<NODE_ID_100_FEET>INSTRUMENT_Needle_Altimeter_100</NODE_ID_100_FEET>
+				<ANIM_NAME_1000_FEET>INSTRUMENT_Needle_Altimeter_1000</ANIM_NAME_1000_FEET>
+				<NODE_ID_1000_FEET>INSTRUMENT_Needle_Altimeter_1000</NODE_ID_1000_FEET>
+				<ANIM_NAME_10000_FEET>INSTRUMENT_Needle_Altimeter_10000</ANIM_NAME_10000_FEET>
+				<NODE_ID_10000_FEET>INSTRUMENT_Needle_Altimeter_10000</NODE_ID_10000_FEET>				
+				<ANIM_NAME_STRIP>INSTRUMENT_Altimeter_Strip</ANIM_NAME_STRIP>
+				<NODE_ID_STRIP>INSTRUMENT_Altimeter_Strip</NODE_ID_STRIP>
+				<KNOB_ANIM_NAME>INSTRUMENT_Knob_Altimeter</KNOB_ANIM_NAME>
+				<KNOB_NODE_ID>INSTRUMENT_Knob_Altimeter</KNOB_NODE_ID>
+			</UseTemplate>	
+
+
+			<!-- ::: ARTIFICIAL HORIZON ::: -->
+			<Component ID="Artifical_Horizon">
+				<UseTemplate Name="ASOBO_INSTRUMENT_AttitudeIndicator_Simple_Template">
+					<ID>1</ID>
+					<USE_FLAG/>
+				</UseTemplate>
+				<UseTemplate Name="ASOBO_INSTRUMENT_Knob_AttitudeCage_Template">
+					<ID>1</ID>
+					<NO_BARS_POSTION_ADJUSTEMENT>False</NO_BARS_POSTION_ADJUSTEMENT>
+				</UseTemplate>
+			</Component>
+
+			<!-- ::: TURN AND SLIP ::: -->
+			<UseTemplate Name="ASOBO_INSTRUMENT_Needle_Turn_Template">
+			</UseTemplate>
+
+			<!-- ::: VERTICAL SPEED INDICATOR ::: -->
+			<UseTemplate Name="ASOBO_INSTRUMENT_Needle_VerticalSpeed_Template">
+				<MAX_VALUE>3000</MAX_VALUE>
+			</UseTemplate>
+
+			<!-- ::: DIRECTIONAL GYRO ::: -->
+			<UseTemplate Name="ASOBO_INSTRUMENT_Needle_Heading_Template">
+				<HEADING_KNOB/>
+				<USE_FLAG/>	
+				<USE_ELECTRICAL_CHECK>True</USE_ELECTRICAL_CHECK>
+			</UseTemplate>
+
+		</Component>
+</Behaviors>

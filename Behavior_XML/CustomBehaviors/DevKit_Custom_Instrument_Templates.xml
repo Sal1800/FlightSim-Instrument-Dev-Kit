@@ -1,0 +1,73 @@
+<ModelBehaviors>
+
+	<Include ModelBehaviorFile="Asobo\Common.xml"/>
+	<Include ModelBehaviorFile="Asobo\Generic.xml"/>		
+
+
+
+	<Template Name="DevKit_Custom_Airspeed_Gauge_Template">
+		<Parameters type="Default">
+			<NODE_ID>INSTRUMENT_Needle_Airspeed_1</NODE_ID>
+			<ANIM_NAME>INSTRUMENT_Needle_Airspeed_1</ANIM_NAME>
+			<SIMVAR_ID>AIRSPEED INDICATED</SIMVAR_ID>
+			<UNITS>Knots</UNITS>
+			<ANIM_LENGTH>360</ANIM_LENGTH>
+			<MIN_VALUE>0</MIN_VALUE>
+			<MAX_VALUE>185</MAX_VALUE>
+			<CAL_COUNT>0</CAL_COUNT>
+			<CAL_FACTOR>1</CAL_FACTOR>
+		</Parameters>
+		<Parameters type="Override">
+			<CAL_FACTOR>#ANIM_LENGTH# #MAX_VALUE# /</CAL_FACTOR>    
+    	</Parameters>	
+		<Condition>
+			<Test>
+	            <Greater>
+	                <Value>CAL_COUNT</Value>
+	                <Number>0</Number>
+	            </Greater>
+		    </Test>
+		    <True>
+				<Loop>
+				    <Setup>
+				        <Param>CAL_INDEX</Param>
+				        <From>1</From>
+				        <Inc>1</Inc>
+				        <To>#CAL_COUNT#</To>
+				    </Setup>
+				    <Do>
+				        <Parameters Type="Default" Lifetime="Loop">
+				            <CAL_FACTOR_TEMP>#CAL_FACTOR#</CAL_FACTOR_TEMP>
+				            <LAST_VAL>0</LAST_VAL>
+				        </Parameters>
+				        <Parameters Type="Override" Lifetime="Loop">
+				            <CAL_FACTOR_TEMP>
+				            	(A:#SIMVAR_ID#, #UNITS#) #CAL_VAL_##CAL_COUNT# &lt; 
+				            	if{
+				            		#CAL_KEY_##CAL_COUNT# #CAL_VAL_##CAL_COUNT# /
+				            	}
+				           	</CAL_FACTOR_TEMP>
+				        </Parameters>
+				    </Do>
+				    <Then>
+				        <CAL_FACTOR>#CAL_FACTOR_TEMP#</CAL_FACTOR>
+				    </Then>
+				</Loop>
+		    </True>
+		    <False>
+
+		    </False>
+		</Condition>
+
+
+		<Component ID="#NODE_ID#" NODE_ID="#NODE_ID#">
+			<!-- The frame number will be equal to the indicated airspeed in knots -->
+			<PART_ID>#NODE_ID#</PART_ID>
+			<UseTemplate Name="ASOBO_GT_Anim">
+				<ANIM_CODE>(A:#SIMVAR_ID#, #UNITS#) #CAL_FACTOR# *</ANIM_CODE>
+			</UseTemplate>
+		</Component>
+
+	</Template>
+
+</ModelBehaviors>
