@@ -9,7 +9,7 @@ You will also need to install at least [Blender](https://www.blender.org/downloa
 
 Download the Instrument Dev Kit files from this repository and unzip in a location near your aircraft project files. 
 
-###Current Status
+### Current Status
 This is a work in progress. The Six-Pack instruments are ready to use in your projects. Make sure to read the documentation. Other instruments are still being developed. You can use the models but there may be more work needed.
 
 ### Adding an instrument model to your project
