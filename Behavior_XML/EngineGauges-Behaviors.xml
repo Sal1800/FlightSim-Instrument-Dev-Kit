@@ -1,0 +1,67 @@
+
+
+
+
+<Behaviors>
+
+		<Include ModelBehaviorFile="Asobo\Common.xml"/>
+		<Include ModelBehaviorFile="Asobo\Generic.xml"/>
+
+		<!-- FLIGHT_INSTRUMENTS ########################### -->
+		<Component ID="ENGINE_INSTRUMENTS">
+			
+			<!-- ::: RPM ::: -->
+            <UseTemplate Name="ASOBO_INSTRUMENT_Needle_Engine_RPM_Template">
+                <UNITS>rpm</UNITS>
+                <MIN_VALUE>0</MIN_VALUE>
+                <MAX_VALUE>3500</MAX_VALUE>
+            </UseTemplate>
+
+			<!-- ::: MANIFOLD PRESSURE ::: -->
+            <UseTemplate Name="ASOBO_INSTRUMENT_Needle_ManifoldPressure_Template">
+                <MIN_VALUE>0</MIN_VALUE>
+                <MAX_VALUE>100</MAX_VALUE>
+            </UseTemplate>
+
+			<!-- ::: FUEL FLOW ::: -->
+            <UseTemplate Name="ASOBO_INSTRUMENT_Needle_FuelFlow_Template">
+                <MIN_VALUE>0</MIN_VALUE>
+                <MAX_VALUE>20</MAX_VALUE>
+            </UseTemplate>
+
+			<!-- ::: SUCTION ::: -->
+            <UseTemplate Name="ASOBO_PRESSURIZATION_Needle_Suction_Template">
+                <MIN_VALUE>0</MIN_VALUE>
+                <MAX_VALUE>10</MAX_VALUE>
+            </UseTemplate>
+
+			<!-- ::: FUEL LEFT & RIGHT ::: -->
+            <UseTemplate Name="ASOBO_INSTRUMENT_Needle_Fuel_Quantity_Template">
+				<TWO_NEEDLE_IN_CONTAINER>True</TWO_NEEDLE_IN_CONTAINER>
+                <TANK_ID>LEFT MAIN</TANK_ID>
+				<TANK_ID2>RIGHT MAIN</TANK_ID2>
+            </UseTemplate>			
+
+			<!-- ::: AMMETER ::: -->
+            <UseTemplate Name="ASOBO_INSTRUMENT_Needle_Ammeter_Template">
+                <SIMVAR>ELECTRICAL MAIN BUS AMPS</SIMVAR>
+                <FAILURE_CODE>50</FAILURE_CODE>
+            </UseTemplate>
+
+			<!-- ::: CYLINDER TEMPERATURE ::: -->
+            <UseTemplate Name="ASOBO_INSTRUMENT_Needle_CylinderHead_Temperature_Template">
+                <UNITS>Fahrenheit</UNITS>
+                <MIN_VALUE>200</MIN_VALUE>
+                <MAX_VALUE>500</MAX_VALUE>
+            </UseTemplate>
+
+			<!-- ::: OIL TEMPERATURE ::: -->
+            <UseTemplate Name="ASOBO_INSTRUMENT_Needle_Oil_Temperature_Template">
+                <UNITS>Fahrenheit</UNITS>
+                <MIN_VALUE>100</MIN_VALUE>
+                <MAX_VALUE>230</MAX_VALUE>
+            </UseTemplate>
+
+
+		</Component>
+</Behaviors>
