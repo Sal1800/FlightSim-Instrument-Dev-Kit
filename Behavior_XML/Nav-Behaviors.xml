@@ -1,0 +1,215 @@
+<Behaviors>
+
+		<Include ModelBehaviorFile="Asobo\Common.xml"/>
+		<Include ModelBehaviorFile="Asobo\Generic.xml"/>
+
+
+
+
+	<Component ID="NAV-INSTRUMENTS">
+
+			<UseTemplate Name="ASOBO_INSTRUMENT_Dial_Compass_Template">
+				<!-- whisky compass INSTRUMENT_Dial_Compass -->
+			</UseTemplate>
+
+			<Component ID="INSTRUMENT_Compass_pitch" Node="INSTRUMENT_Compass_pitch">	
+				<UseTemplate Name="ASOBO_GT_Anim">
+					<ANIM_NAME>INSTRUMENT_Compass_pitch</ANIM_NAME>
+					<!--
+						Simvar pitch rddg: convert pitch angle from radians to degrees
+						-15 max: minimum angle of -15 degreesa
+						15 min: maximum angle of 15 degrees
+						3.334 *: scale factor from -15/+15 to -50/+50
+						50 +: add 50 to reach 0-100 range
+					-->				
+					<ANIM_CODE>(A:PLANE PITCH DEGREES, radians) rddg -15 max 15 min 3.334 * 50 +</ANIM_CODE>
+					<ANIM_LENGTH>100</ANIM_LENGTH>
+				</UseTemplate>			
+			</Component>	 	
+
+			<Component ID="INSTRUMENT_Compass_roll" Node="INSTRUMENT_Compass_roll">	
+				<UseTemplate Name="ASOBO_GT_Anim">
+					<ANIM_NAME>INSTRUMENT_Compass_roll</ANIM_NAME>
+					<!--
+						Simvar bank rddg: convert bank angle from radians to degrees
+						-15 max: minimum angle of -15 degreesa
+						15 min: maximum angle of 15 degrees
+						3.334 *: scale factor from -15/+15 to -50/+50
+						50 +: add 50 to reach 0-100 range
+					-->				
+					<ANIM_CODE>(A:PLANE BANK DEGREES, radians) rddg -15 max 15 min 3.334 * 50 +</ANIM_CODE>
+					<ANIM_LENGTH>100</ANIM_LENGTH>
+				</UseTemplate>			
+			</Component>
+
+
+			<!-- CDI NAV1/GPS-->
+			<UseTemplate Name="ASOBO_INSTRUMENT_CDI_Template">
+				<ID>1</ID>
+			</UseTemplate>
+
+			<!-- CDI NAV2-->
+			<UseTemplate Name="ASOBO_INSTRUMENT_CDI_Template">
+				<ID>2</ID>
+				<NO_GPS_DEPENDENCY/>
+			</UseTemplate>
+
+
+			<!-- RMI -->
+			<Component ID="RMI">
+				<Parameters Type="Default">
+					<NEEDLE_1_INDEX>2</NEEDLE_1_INDEX>
+					<NEEDLE_2_INDEX>2</NEEDLE_2_INDEX>
+					<USE_GPS>0</USE_GPS>
+					<USE_ADF>1</USE_ADF>
+				</Parameters>
+				<Parameters Type="Override">
+					<NEEDLE_1_CODE>
+						(A:GPS DRIVES NAV1:1) #USE_GPS# AND if{
+							(A:HSI BEARING:1, degrees) (A:PLANE HEADING DEGREES GYRO, degrees) - dnor
+						} els{
+							(A:NAV RELATIVE BEARING TO STATION:#NEEDLE_1_INDEX#, degrees) dnor
+						}
+					</NEEDLE_1_CODE>
+					<NEEDLE_2_CODE>
+						#USE_ADF# if{
+							(A:ADF RADIAL:1, degrees) dnor
+						} els{
+							(A:NAV RELATIVE BEARING TO STATION:#NEEDLE_2_INDEX#, degrees) dnor
+						}
+					</NEEDLE_2_CODE>
+				</Parameters>
+
+				<!-- heading ring -->
+				<UseTemplate Name="ASOBO_GT_Anim_Sim">
+					<ANIM_NAME>INSTRUMENT_RMI_Heading_Cylinder_1</ANIM_NAME>
+					<ANIM_LENGTH>360</ANIM_LENGTH>
+					<ANIM_WRAP>TRUE</ANIM_WRAP>
+					<ANIM_SIMVAR>PLANE HEADING DEGREES GYRO</ANIM_SIMVAR>
+					<ANIM_SIMVAR_UNITS>degrees</ANIM_SIMVAR_UNITS>
+				</UseTemplate>
+
+				<!-- Solid needle -->
+				<UseTemplate Name = "ASOBO_GT_Anim_Code">
+					<ANIM_NAME>INSTRUMENT_RMI_Needle_1</ANIM_NAME>
+					<ANIM_LENGTH>360</ANIM_LENGTH>
+					<ANIM_WRAP>TRUE</ANIM_WRAP>
+					<ANIM_CODE>#NEEDLE_1_CODE#</ANIM_CODE>
+				</UseTemplate>
+
+				<!-- Open needle --> 
+				<UseTemplate Name = "ASOBO_GT_Anim_Code">
+					<ANIM_NAME>INSTRUMENT_RMI_Needle_2</ANIM_NAME>
+					<ANIM_LENGTH>360</ANIM_LENGTH>
+					<ANIM_WRAP>TRUE</ANIM_WRAP>
+					<ANIM_CODE>#NEEDLE_2_CODE#</ANIM_CODE>
+				</UseTemplate>
+
+			</Component>
+
+
+			<!-- HSI -->
+			<Component ID="HSI">
+				<Parameters Type="Default">
+					<COURSE_CODE>
+						(A:GPS DRIVES NAV1, Bool) if{
+							(A:GPS WP CROSS TRK, nautical mile) 127 * 127 +
+						} els{
+							(A:NAV OBS:1, degrees) 
+						}
+					</COURSE_CODE>
+				</Parameters>
+
+				<UseTemplate Name="ASOBO_GT_Anim_Sim">
+					<ANIM_NAME>INSTRUMENT_HSI_Heading_Cylinder</ANIM_NAME>
+					<ANIM_LENGTH>360</ANIM_LENGTH>
+					<ANIM_WRAP>TRUE</ANIM_WRAP>
+					<ANIM_SIMVAR>PLANE HEADING DEGREES GYRO</ANIM_SIMVAR>
+					<ANIM_SIMVAR_UNITS>degrees</ANIM_SIMVAR_UNITS>
+				</UseTemplate>
+
+				<UseTemplate Name = "ASOBO_GT_Anim_Code">
+					<ANIM_NAME>INSTRUMENT_HSI_Course_Rotate</ANIM_NAME>
+					<ANIM_LENGTH>360</ANIM_LENGTH>
+					<ANIM_WRAP>TRUE</ANIM_WRAP>
+					<ANIM_CODE>#COURSE_CODE#</ANIM_CODE>
+				</UseTemplate>
+
+				<UseTemplate Name = "ASOBO_GT_Anim_Code">
+					<ANIM_NAME>INSTRUMENT_HSI_Course_Needle_1</ANIM_NAME>
+					<ANIM_LENGTH>127</ANIM_LENGTH>
+					<ANIM_CODE>(A:HSI CDI NEEDLE:1, number) 64 +</ANIM_CODE>
+				</UseTemplate>
+
+				<UseTemplate Name = "ASOBO_GT_Anim_Code">
+					<ANIM_NAME>INSTRUMENT_HSI_Needle_Glide</ANIM_NAME>
+					<ANIM_LENGTH>127</ANIM_LENGTH>
+					<ANIM_CODE>(A:HSI GSI NEEDLE:1, number) 64 +</ANIM_CODE>
+				</UseTemplate>		
+				<UseTemplate Name = "ASOBO_GT_Anim_Code">
+					<ANIM_NAME>INSTRUMENT_HSI_Needle_Heading_Bug</ANIM_NAME>
+					<ANIM_LENGTH>360</ANIM_LENGTH>
+					<ANIM_WRAP>TRUE</ANIM_WRAP>
+					<ANIM_LAG>200</ANIM_LAG>
+					<ANIM_CODE>(A:AUTOPILOT HEADING LOCK DIR, degrees)</ANIM_CODE>
+				</UseTemplate>		
+
+
+				<Component ID="HSI_HEADING_KNOB">
+					<Parameters Type="Default">
+						<WWISE_PREFIX>hdg</WWISE_PREFIX>
+						<HDG_ID>1</HDG_ID>
+						<TT_DESCRIPTION_ID>@TT_Package.INSTRUMENT_KNOB_HEADING_BUG_ACTION</TT_DESCRIPTION_ID>
+						<TOOLTIP_TITLE>@TT_Package.INSTRUMENT_KNOB_HEADING_BUG_TITLE</TOOLTIP_TITLE>
+						<THRESHOLD_INPUT>0.00005</THRESHOLD_INPUT>
+						<THRESHOLD_MOUSE>0.001</THRESHOLD_MOUSE>
+						<HEADING_KNOB_ANIM_NAME>INSTRUMENT_HSI_Knob_Headiing_Bug_1</HEADING_KNOB_ANIM_NAME>
+						<HEADING_KNOB_NODE_ID>INSTRUMENT_HSI_Knob_Headiing_Bug_1</HEADING_KNOB_NODE_ID>
+					</Parameters>
+					<UseTemplate Name="ASOBO_INSTRUMENT_Base_Template">
+						<ANIM_NAME>#HEADING_KNOB_ANIM_NAME#</ANIM_NAME>
+						<NODE_ID>#HEADING_KNOB_NODE_ID#</NODE_ID>
+						<IE_NAME>Heading_Bug</IE_NAME>
+						<INTERACTION_TYPE>Knob</INTERACTION_TYPE>
+						<IS_INFINITE>True</IS_INFINITE>
+						<SET_STATE_EXTERNAL>#HDG_ID# p0 dnor 360 / @16k * (&gt;K:2:AP_HEADING_BUG_SET_EX1)</SET_STATE_EXTERNAL>
+						<CLAMP_VALUE>dnor</CLAMP_VALUE>
+						<GET_STATE_EXTERNAL>(A:AUTOPILOT HEADING LOCK DIR:#HDG_ID#, degrees)</GET_STATE_EXTERNAL>
+						<SIMVAR_TO_WATCH_0>AUTOPILOT HEADING LOCK DIR:#HDG_ID#</SIMVAR_TO_WATCH_0>
+						<FORMAT_VALUE>'%d°' @sprintf</FORMAT_VALUE>
+						<STATE_TO_POS_EXTERNAL>3.6 /</STATE_TO_POS_EXTERNAL>
+					</UseTemplate>
+				</Component>
+
+				<Component ID="HSI_COURSE_KNOB" Node="INSTRUMENT_HSI_Knob_Course_1">
+					<Parameters Type="Default">
+						<COURSE_KNOB_ANIM_NAME>INSTRUMENT_HSI_Knob_Course_1</COURSE_KNOB_ANIM_NAME>
+						<TOOLTIP_COURSE_TITLE>@TT_Package.AUTOPILOT_KNOB_COURSE_TITLE</TOOLTIP_COURSE_TITLE>
+						<ID>1</ID>
+					</Parameters>
+					<Parameters Type="Override">
+						<TOOLTIP_TITLE>#TOOLTIP_COURSE_TITLE#</TOOLTIP_TITLE>
+						<TOOLTIP_ENTRY_0>INSTRUMENT_Course_#ID#</TOOLTIP_ENTRY_0>
+					</Parameters>
+					<UseInputEvent ID="INSTRUMENT">
+						<CRS_ID>#ID#</CRS_ID>
+						<ON_AFTER_INC_EXTERNAL_CODE>(O:_KnobAnimVar) 10 + dnor (&gt;O:_KnobAnimVar)</ON_AFTER_INC_EXTERNAL_CODE>
+						<ON_AFTER_DEC_EXTERNAL_CODE>(O:_KnobAnimVar) 10 - dnor (&gt;O:_KnobAnimVar)</ON_AFTER_DEC_EXTERNAL_CODE>
+					</UseInputEvent>
+					<UseTemplate Name="ASOBO_GT_Knob_Infinite">
+						<ANIM_NAME>#COURSE_KNOB_ANIM_NAME#</ANIM_NAME>
+						<CLOCKWISE_CODE_DEFAULT_IM>1 (&gt;B:INSTRUMENT_Course_#ID#_Inc) 1 (&gt;K:VOR1_OBI_INC)</CLOCKWISE_CODE_DEFAULT_IM>
+						<ANTICLOCKWISE_CODE_DEFAULT_IM>1 (&gt;B:INSTRUMENT_Course_#ID#_Dec) 1 (&gt;K:VOR1_OBI_DEC)</ANTICLOCKWISE_CODE_DEFAULT_IM>
+						<CLOCKWISE_CODE_DRAG_IM>1 (&gt;B:INSTRUMENT_Course_#ID#_Inc) 1 (&gt;K:VOR1_OBI_INC)</CLOCKWISE_CODE_DRAG_IM>
+						<ANTICLOCKWISE_CODE_DRAG_IM>1 (&gt;B:INSTRUMENT_Course_#ID#_Dec) 1 (&gt;K:VOR1_OBI_DEC)</ANTICLOCKWISE_CODE_DRAG_IM>
+					</UseTemplate>
+				</Component>
+
+
+
+			</Component>
+
+
+		</Component>
+
+</Behaviors>
