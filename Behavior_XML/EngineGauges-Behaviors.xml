@@ -62,6 +62,12 @@
                 <MAX_VALUE>230</MAX_VALUE>
             </UseTemplate>
 
+			<!-- ::: EGT ::: -->
+            <UseTemplate Name="ASOBO_INSTRUMENT_Needle_EGT_Template">
+				<MIN_VALUE>700</MIN_VALUE>
+				<MAX_VALUE>1700</MAX_VALUE>
+				<DONT_APPEND_ID>True</DONT_APPEND_ID>
+            </UseTemplate>
 
 		</Component>
 </Behaviors>
